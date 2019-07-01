@@ -1,7 +1,7 @@
 const observe = (object, onChange) => {
   const handler = {
     get(target, property, receiver) {
-      onChange(property);
+      if (property !== 'constructor' && property !== 'prototype') onChange(property);
       return Reflect.get(target, property, receiver);
     },
     defineProperty(target, property, descriptor) {

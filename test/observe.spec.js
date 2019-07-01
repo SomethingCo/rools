@@ -18,6 +18,20 @@ describe('observe', () => {
     expect(spy.calledWith('prop')).to.be.equal(true);
   });
 
+  it('should not notify on read constructor', () => {
+    const spy = sinon.spy();
+    const proxy = observe(object, spy);
+    const temp = proxy.constructor; // eslint-disable-line no-unused-vars
+    expect(spy.calledWith('constructor')).to.be.equal(false);
+  })
+
+  it('should not notify on read prototype', () => {
+    const spy = sinon.spy();
+    const proxy = observe(object, spy);
+    const temp = proxy.prototype; // eslint-disable-line no-unused-vars
+    expect(spy.calledWith('prototype')).to.be.equal(false);
+  })
+
   it('should notify on writing property', () => {
     const spy = sinon.spy();
     const proxy = observe(object, spy);
